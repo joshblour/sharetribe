@@ -2,7 +2,7 @@
 
 #Deploy and rollback on Heroku in staging and production
 #task :deploy_staging => ['deploy:set_staging_app', 'deploy:push', 'deploy:restart', 'deploy:tag']
-#task :deploy_production => ['deploy:set_production_app', 'deploy:push', 'deploy:restart', 'deploy:tag']
+task :deploy_production => ['deploy:set_production_app', 'deploy:push', 'deploy:restart', 'deploy:tag']
 
 ## generic deploy methods
 
@@ -248,7 +248,7 @@ task :deploy_without_migrations => [
 ]
 
 namespace :deploy do
-  PRODUCTION_APP = 'sharetribe-production'
+  PRODUCTION_APP = 'cookingmarketplace'
   PREPRODUCTION_APP = 'sharetribe-preproduction'
   STAGING_APP = 'sharetribe-staging'
   TRANSLATION_APP = "sharetribe-translation"
