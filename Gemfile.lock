@@ -504,7 +504,7 @@ DEPENDENCIES
   mangopay
   memcachier
   mercury-rails
-  money-rails
+  money-rails (= 0.8.1)
   multi_json (~> 1.7.3)
   mysql2
   newrelic_rpm (~> 3.6.2.96)
