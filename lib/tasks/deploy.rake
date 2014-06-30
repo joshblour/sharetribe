@@ -64,7 +64,7 @@ def deploy(params)
   end
 
   set_app(@destination)
-  prepare_closed_source_branch
+  prepare_master_branch
   deploy_to_server
   if params[:migrations]
     run_migrations
@@ -80,15 +80,15 @@ def set_app(destination)
   puts "Destination Heroku app: #{@app}"
 end
 
-def prepare_closed_source_branch
+def prepare_master_branch
   puts 'Copying closed source contents...'
   puts `mkdir ../tmp-sharetribe` unless File.exists?("../tmp-sharetribe")
   puts `mkdir ../tmp-sharetribe/webfonts` unless File.exists?("../tmp-sharetribe/webfonts")
   puts `rm app/assets/webfonts/* `
-  puts `git checkout closed_source`
+  puts `git checkout master`
   # Just in case, check that we really are in the right branch before reset --hard
-  if `git symbolic-ref HEAD`.match("refs/heads/closed_source")
-    puts `git reset --hard private/closed_source`
+  if `git symbolic-ref HEAD`.match("refs/heads/master")
+    puts `git reset --hard private/master`
     puts `git pull`
     puts `cp -R app/assets/webfonts/* ../tmp-sharetribe/webfonts/`
     puts `cp config/mangopay.pem ../tmp-sharetribe/`
@@ -98,7 +98,7 @@ def prepare_closed_source_branch
     puts `cp -R ../tmp-sharetribe/webfonts/* app/assets/webfonts/`
     puts `cp ../tmp-sharetribe/mangopay.pem config/`
   else
-    puts "ERROR: Checkout for closed_source branch didn't work. Maybe you have uncommitted changes?"
+    puts "ERROR: Checkout for master branch didn't work. Maybe you have uncommitted changes?"
   end
 end
 
@@ -108,7 +108,7 @@ def heroku(cmd)
 end
 
 def deploy_to_server
-  system("git push #{@destination} closed_source:master --force")
+  system("git push #{@destination} master --force")
 
 end
 
@@ -133,7 +133,7 @@ task :deploy_staging_migrations_from_master => [
   'deploy:set_staging_app',
   'deploy:set_master_as_source_branch',
   'i18n:write_error_pages',
-  'deploy:update_closed_source_folders',
+  'deploy:update_master_folders',
   'deploy_with_migrations'
 ]
 
@@ -141,7 +141,7 @@ task :deploy_staging_migrations_from_develop => [
   'deploy:set_staging_app',
   'deploy:set_develop_as_source_branch',
   'i18n:write_error_pages',
-  'deploy:update_closed_source_folders',
+  'deploy:update_master_folders',
   'deploy_with_migrations'
 ]
 
@@ -149,14 +149,14 @@ task :deploy_staging_without_migrations_from_develop => [
   'deploy:set_staging_app',
   'deploy:set_develop_as_source_branch',
   'i18n:write_error_pages',
-  'deploy:update_closed_source_folders',
+  'deploy:update_master_folders',
   'deploy_without_migrations'
 ]
 
 ## PRODUCTION
 
-# this one deploy's the closed_source branch but doesn't update it
-task :deploy_production_migrations_from_closed_source => [
+# this one deploy's the master branch but doesn't update it
+task :deploy_production_migrations_from_master => [
   'deploy:set_production_app',
   'deploy_with_migrations'
 ]
@@ -164,27 +164,27 @@ task :deploy_production_migrations_from_closed_source => [
 task :deploy_production_migrations_from_master => [
   'deploy:set_production_app',
   'deploy:set_master_as_source_branch',
-  'deploy:update_closed_source_folders',
+  'deploy:update_master_folders',
   'deploy_with_migrations'
 ]
 
 task :deploy_production_without_migrations_from_master => [
   'deploy:set_production_app',
   'deploy:set_master_as_source_branch',
-  'deploy:update_closed_source_folders',
+  'deploy:update_master_folders',
   'deploy_without_migrations'
 ]
 
-# this one deploy's the closed_source branch but doesn't update it
-task :deploy_production_without_migrations_from_closed_source => [
+# this one deploy's the master branch but doesn't update it
+task :deploy_production_without_migrations_from_master => [
   'deploy:set_production_app',
   'deploy_without_migrations'
 ]
 
 ## PRE PRODUCTION
 
-# this one deploy's the closed_source branch but doesn't update it
-task :deploy_preproduction_migrations_from_closed_source => [
+# this one deploy's the master branch but doesn't update it
+task :deploy_preproduction_migrations_from_master => [
   'deploy:set_preproduction_app',
   'deploy_with_migrations'
 ]
@@ -192,7 +192,7 @@ task :deploy_preproduction_migrations_from_closed_source => [
 task :deploy_preproduction_migrations_from_develop => [
   'deploy:set_preproduction_app',
   'deploy:set_develop_as_source_branch',
-  'deploy:update_closed_source_folders',
+  'deploy:update_master_folders',
   'deploy_with_migrations'
 ]
 
@@ -201,7 +201,7 @@ task :deploy_preproduction_migrations_from_develop => [
 task :deploy_translation_migrations_from_develop => [
   'deploy:set_translation_app',
   'deploy:set_develop_as_source_branch',
-  'deploy:update_closed_source_folders',
+  'deploy:update_master_folders',
   'deploy:push',
   'deploy:migrate',
   'deploy:restart'
@@ -210,7 +210,7 @@ task :deploy_translation_migrations_from_develop => [
 task :deploy_translation_without_migrations_from_develop => [
   'deploy:set_translation_app',
   'deploy:set_develop_as_source_branch',
-  'deploy:update_closed_source_folders',
+  'deploy:update_master_folders',
   'deploy:push'
 ]
 
@@ -282,15 +282,15 @@ namespace :deploy do
     BRANCH = "master"
   end
 
-  task :update_closed_source_folders do
+  task :update_master_folders do
     puts 'Copying closed source contents...'
     puts `mkdir ../tmp-sharetribe` unless File.exists?("../tmp-sharetribe")
     puts `mkdir ../tmp-sharetribe/webfonts` unless File.exists?("../tmp-sharetribe/webfonts")
     puts `rm app/assets/webfonts/* `
-    puts `git checkout closed_source`
+    puts `git checkout master`
     # Just in case, check that we really are in the right branch before reset --hard
-    if `git symbolic-ref HEAD`.match("refs/heads/closed_source")
-      puts `git reset --hard private/closed_source`
+    if `git symbolic-ref HEAD`.match("refs/heads/master")
+      puts `git reset --hard private/master`
       puts `git pull`
       puts `cp -R app/assets/webfonts/* ../tmp-sharetribe/webfonts/`
       puts `cp config/mangopay.pem ../tmp-sharetribe/`
@@ -300,22 +300,22 @@ namespace :deploy do
       puts `cp -R ../tmp-sharetribe/webfonts/* app/assets/webfonts/`
       puts `cp ../tmp-sharetribe/mangopay.pem config/`
     else
-      puts "ERROR: Checkout for closed_source branch didn't work. Maybe you have uncommitted changes?"
+      puts "ERROR: Checkout for master branch didn't work. Maybe you have uncommitted changes?"
     end
   end
 
   task :push do
     puts 'Deploying site to Heroku ...'
     if APP == PRODUCTION_APP
-      puts `git push production closed_source:master --force`
+      puts `git push production master --force`
     elsif APP == TRANSLATION_APP
-      puts `git push translation closed_source:master --force`
+      puts `git push translation master --force`
     elsif APP == TESTING_APP
-      puts `git push testing closed_source:master --force`
+      puts `git push testing master --force`
     elsif APP == PREPRODUCTION_APP
-      puts `git push preproduction closed_source:master --force`
+      puts `git push preproduction master --force`
     else
-      puts `git push staging closed_source:master --force`
+      puts `git push staging master --force`
     end
   end
 
