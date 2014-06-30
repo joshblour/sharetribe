@@ -1,4 +1,12 @@
 GIT
+  remote: git://github.com/capistrano/rvm.git
+  revision: dc35ec5e7a74a422250bd6ff5e8885c8b742d0e5
+  specs:
+    capistrano-rvm (0.1.1)
+      capistrano (~> 3.0)
+      sshkit (~> 1.2)
+
+GIT
   remote: git://github.com/pat/ts-delayed-delta.git
   revision: 839284f2f28b3f4caf3a3bf5ccde9a6d222c7f4d
   ref: 839284f2f28b3f4caf3a3bf5ccde9a6d222c7f4d
@@ -47,9 +55,6 @@ GEM
       builder
       json
     arel (3.0.3)
-    asset_sync (1.0.0)
-      activemodel
-      fog
     ast (2.0.0)
     aws-sdk (1.15.0)
       json (~> 1.4)
@@ -61,6 +66,16 @@ GEM
     braintree (2.30.0)
       builder (>= 2.0.0)
     builder (3.0.4)
+    capistrano (3.1.0)
+      i18n
+      rake (>= 10.0.0)
+      sshkit (~> 1.3)
+    capistrano-bundler (1.1.2)
+      capistrano (~> 3.0)
+      sshkit (~> 1.2)
+    capistrano-rails (1.1.1)
+      capistrano (~> 3.1)
+      capistrano-bundler (~> 1.1)
     capybara (2.2.1)
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
@@ -82,6 +97,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.4.0)
+    colorize (0.7.3)
     compass (0.12.2)
       chunky_png (~> 1.2)
       fssm (>= 0.2.7)
@@ -107,6 +123,7 @@ GEM
       cucumber (>= 1.2.0)
       nokogiri (>= 1.5.0)
       rails (>= 3.0.0)
+    daemons (1.1.9)
     dalli (2.6.4)
     database_cleaner (0.9.1)
     debug_inspector (0.0.2)
@@ -138,7 +155,6 @@ GEM
       mail (~> 2.2)
     erubis (2.7.0)
     eventmachine (1.0.3)
-    excon (0.25.3)
     execjs (1.4.0)
       multi_json (~> 1.0)
     factory_girl (4.4.0)
@@ -157,16 +173,6 @@ GEM
       pusher-client (~> 0.3)
       riddle (>= 1.5.6)
       thinking-sphinx
-    fog (1.9.0)
-      builder
-      excon (~> 0.14)
-      formatador (~> 0.2.0)
-      mime-types
-      multi_json (~> 1.0)
-      net-scp (~> 1.0.4)
-      net-ssh (>= 2.1.3)
-      nokogiri (~> 1.5.0)
-      ruby-hmac
     formatador (0.2.4)
     fssm (0.2.9)
     gherkin (2.12.2)
@@ -204,6 +210,7 @@ GEM
     kgio (2.8.1)
     launchy (2.1.2)
       addressable (~> 2.3)
+    libv8 (3.16.14.3)
     listen (1.3.1)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
@@ -238,9 +245,9 @@ GEM
     multi_xml (0.5.5)
     multipart-post (1.2.0)
     mysql2 (0.3.14)
-    net-scp (1.0.4)
-      net-ssh (>= 1.99.1)
-    net-ssh (2.6.2)
+    net-scp (1.2.1)
+      net-ssh (>= 2.6.5)
+    net-ssh (2.9.1)
     newrelic_rpm (3.6.2.96)
     nokogiri (1.5.11)
     oauth2 (0.9.3)
@@ -342,6 +349,7 @@ GEM
     rdoc (3.12.2)
       json (~> 1.4)
     recaptcha (0.3.4)
+    ref (1.0.5)
     rest-client (1.6.7)
       mime-types (>= 1.16)
     riddle (1.5.11)
@@ -366,7 +374,6 @@ GEM
       powerpack (~> 0.0.6)
       rainbow (>= 1.99.1, < 3.0)
       ruby-progressbar (~> 1.4)
-    ruby-hmac (0.4.0)
     ruby-ole (1.2.11.6)
     ruby-prof (0.14.2)
     ruby-progressbar (1.4.2)
@@ -396,6 +403,10 @@ GEM
       multi_json (~> 1.0)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
+    sshkit (1.5.1)
+      colorize
+      net-scp (>= 1.1.2)
+      net-ssh (>= 2.8.0)
     statesman (0.5.0)
     strong_parameters (0.2.1)
       actionpack (~> 3.0)
@@ -405,6 +416,9 @@ GEM
       json (>= 1.1.1)
     term-ansicolor (1.3.0)
       tins (~> 1.0)
+    therubyracer (0.12.1)
+      libv8 (~> 3.16.14.0)
+      ref
     thinking-sphinx (3.1.1)
       activerecord (>= 3.1.0)
       builder (>= 2.1.2)
@@ -450,9 +464,12 @@ DEPENDENCIES
   action_mailer_cache_delivery
   acts-as-taggable-on
   airbrake (~> 3.1.12)
-  asset_sync
   aws-sdk
   braintree
+  capistrano (~> 3.1.0)
+  capistrano-bundler (~> 1.1.2)
+  capistrano-rails (~> 1.1.1)
+  capistrano-rvm!
   capybara
   coffee-rails (~> 3.2.2)
   compass-rails
@@ -461,6 +478,7 @@ DEPENDENCIES
   coveralls
   cucumber
   cucumber-rails
+  daemons
   dalli
   database_cleaner
   delayed_job (~> 3.0.5)
@@ -470,6 +488,7 @@ DEPENDENCIES
   devise-encryptable
   dynamic_form
   email_spec
+  execjs
   factory_girl_rails
   fb-channel-file
   flying-sphinx (~> 1.2.0)
@@ -519,6 +538,7 @@ DEPENDENCIES
   spreadsheet
   statesman (~> 0.5.0)
   strong_parameters
+  therubyracer
   thinking-sphinx (~> 3.1.1)
   timecop
   truncate_html

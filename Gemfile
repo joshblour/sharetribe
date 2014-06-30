@@ -12,7 +12,7 @@ gem 'rails', '3.2.17'
 group :assets do
   gem 'coffee-rails', "~> 3.2.2"
   gem 'uglifier'
-  gem 'asset_sync'
+  # gem 'asset_sync'
 end
 
 gem 'sass-rails'
@@ -120,6 +120,21 @@ group :development, :test do
   gem 'pry-rails'
   gem 'pry-nav'
   gem 'pry-stack_explorer'
+end
+
+group :development do
+  gem 'capistrano', '~> 3.1.0'
+  gem 'capistrano-bundler', '~> 1.1.2'
+  gem 'capistrano-rails', '~> 1.1.1'
+  gem 'capistrano-rvm', github: "capistrano/rvm"
+end
+
+group :production do
+  # needed for capistrano - delayed job
+  gem 'daemons'
+  # needed for precompiling assets
+  gem 'therubyracer'
+  gem 'execjs'
 end
 
 gem 'strong_parameters'
