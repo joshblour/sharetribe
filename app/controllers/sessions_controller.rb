@@ -4,7 +4,7 @@ class SessionsController < ApplicationController
 
   skip_filter :check_email_confirmation
   skip_filter :dashboard_only
-  skip_filter :single_community_only, :only => [ :new, :create, :request_new_password ]
+  skip_filter :single_community_only, :only => [ :new, :create, :request_new_password, :destroy ]
   skip_filter :cannot_access_without_joining, :only => [ :destroy, :confirmation_pending ]
 
   # For security purposes, Devise just authenticates an user
@@ -34,11 +34,11 @@ class SessionsController < ApplicationController
     # Since the authentication happens in the rack layer,
     # we need to tell Devise to call the action "sessions#new"
     # in case something goes bad.
-    if @current_community
+    # if @current_community
       person = authenticate_person!(:recall => "sessions#new")
-    else
-      person = authenticate_person!(:recall => "dashboard#login")
-    end
+    # else
+    #   person = authenticate_person!(:recall => "dashboard#login")
+    # end
     flash[:error] = nil
     @current_user = person
 
