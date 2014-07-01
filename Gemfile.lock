@@ -73,6 +73,8 @@ GEM
     capistrano-bundler (1.1.2)
       capistrano (~> 3.0)
       sshkit (~> 1.2)
+    capistrano-local-precompile (0.0.2)
+      capistrano
     capistrano-rails (1.1.1)
       capistrano (~> 3.1)
       capistrano-bundler (~> 1.1)
@@ -468,6 +470,7 @@ DEPENDENCIES
   braintree
   capistrano (~> 3.1.0)
   capistrano-bundler (~> 1.1.2)
+  capistrano-local-precompile
   capistrano-rails (~> 1.1.1)
   capistrano-rvm!
   capybara
