@@ -46,3 +46,4 @@ node_modules
 coverage/
 .idea/
 *.sock
+config/deploy/config/*
