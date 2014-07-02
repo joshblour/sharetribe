@@ -1,7 +1,7 @@
 require 'routes/community_domain'
 require 'routes/api_request'
 
-Kassi::Application.routes.draw do
+Rails.application.routes.draw do
 
     namespace :mercury do
       resources :images
