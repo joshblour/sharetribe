@@ -1,3 +1,5 @@
+require_relative '../migration_classes'
+
 class ReformatNotificationDataToPolymorphic < ActiveRecord::Migration
   def self.up
     Notification.all.each do |notification|

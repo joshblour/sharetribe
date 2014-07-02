@@ -1,31 +1,5 @@
-class Reservation < Conversation
-end
+require_relative '../migration_classes'
 
-class FavorRequest < Conversation
-end
-
-class Favor < ActiveRecord::Base
-  belongs_to :owner, :class_name => "Person", :foreign_key => "owner_id"
-end
-
-class Item < ActiveRecord::Base
-  belongs_to :owner, :class_name => "Person", :foreign_key => "owner_id"
-end
-
-class KassiEventParticipation < ActiveRecord::Base
-  belongs_to :person
-  belongs_to :kassi_event
-end
-
-class KassiEvent < ActiveRecord::Base
-  has_many :person_comments
-  has_many :kassi_event_participations
-  has_many :participants, :through => :kassi_event_participations, :source => :person
-  #belongs_to :eventable, :polymorphic => true
-end
-
-class ItemReservation < ActiveRecord::Base
-end
 
 class FixItemAndFavorRelatedTestimonials < ActiveRecord::Migration
   def self.up

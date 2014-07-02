@@ -1,3 +1,5 @@
+require_relative '../migration_classes'
+
 class MoveDataFromKassiEventsPeopleToKassiEventParticipation < ActiveRecord::Migration
   def self.up
     KassiEvent.all.each do |event|

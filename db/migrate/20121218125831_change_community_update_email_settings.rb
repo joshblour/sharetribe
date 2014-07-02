@@ -1,3 +1,5 @@
+require_relative '../migration_classes'
+
 class ChangeCommunityUpdateEmailSettings < ActiveRecord::Migration
   def up
     #If running this script on a server where there is special aalto community present, use different default for that

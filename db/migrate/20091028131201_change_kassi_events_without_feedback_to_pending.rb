@@ -1,3 +1,5 @@
+require_relative '../migration_classes'
+
 class ChangeKassiEventsWithoutFeedbackToPending < ActiveRecord::Migration
   def self.up
     KassiEvent.all.each do |kassi_event|
