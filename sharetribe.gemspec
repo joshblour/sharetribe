@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.summary     = "Sharetribe is a peer-to-peer marketplace platform built with Ruby on Rails."
   s.description = "Sharetribe is a platform for setting up your own peer-to-peer marketplace online. It's a Ruby on Rails based marketplace CMS. There's also a possibility to set up a hosted marketplace at https://www.sharetribe.com."
   s.license     = "MIT"
-  s.files = `git ls-files`.split("\n")
+  s.files = `git ls-files`.split("\n").reject {|f| f.start_with? 'db/migrate/'}
 
   # s.files = Dir["{app,config}/**/*", "LICENSE", "Rakefile", "README.rdoc", "lib/sharertibe/**/*"]
   

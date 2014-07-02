@@ -33,6 +33,5 @@ unless defined?(Sharetribe::Application)
   require 'sharetribe/engine'
 end
 
-require 'sharetribe/load_settings' # register load hook for Setting
 require "sharetribe/version"
 

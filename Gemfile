@@ -1,6 +1,26 @@
 source 'http://rubygems.org'
+
+# Removes a gem dependency
+def remove(name)
+  @dependencies.reject! {|d| d.name == name }
+end
+
+# Replaces an existing gem dependency (e.g. from gemspec) with an alternate source.
+def gem(*args)
+  remove(args.first)
+  super(*args)
+end
+
+# Load development dependencies from gemspec
 gemspec
 
+# Bundler no longer treats runtime dependencies as base dependencies.
+# The following code restores this behaviour.
+# (See https://github.com/carlhuda/bundler/issues/1041)
+spec = Bundler.load_gemspec(Dir["./{,*}.gemspec"].first)
+spec.runtime_dependencies.each do |dep|
+  gem dep.name, *(dep.requirement.as_list)
+end
 
 # Gems used only for assets and not required
 # in production environments by default.

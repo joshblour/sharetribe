@@ -2,8 +2,8 @@ require 'yaml'
 require 'ostruct'
 
 module ConfigLoader
-  DEFAULT_CONFIGS = "/config/config.defaults.yml"
-  USER_CONFIGS = "/config/config.yml"
+  DEFAULT_CONFIGS = "config.defaults.yml"
+  USER_CONFIGS = "config.yml"
 
   module_function
 
@@ -26,7 +26,7 @@ module ConfigLoader
   end
 
   def read_yaml_file(file)
-    abs_path = "#{Rails.root}/#{file}"
+    abs_path = File.join(__dir__, file)    
     file_content = if File.exists?(abs_path)
       YAML.load_file(abs_path)[Rails.env]
     end
