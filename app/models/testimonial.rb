@@ -24,7 +24,7 @@ class Testimonial < ActiveRecord::Base
         PersonMailer.new_testimonial(self, community).deliver
       rescue Postmark::InvalidMessageError => e
         # continue exceution if something fails in mailin, but report the issue to AirBrake
-        ApplicationHelper.send_error_notification("Error sending email about given feedback", "Email sending error")
+        BaseHelper.send_error_notification("Error sending email about given feedback", "Email sending error")
       end
     end
   end

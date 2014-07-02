@@ -114,7 +114,7 @@ class Api::ApiController < BaseController
     @url_root = @current_community.full_url if @current_community
 
     # Store to thread the service_name used by current community, so that it can be included in all translations
-    ApplicationHelper.store_community_service_name_to_thread(service_name)
+    BaseHelper.store_community_service_name_to_thread(service_name)
 
   end
 

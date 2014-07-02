@@ -1,5 +1,5 @@
 class Email < ActiveRecord::Base
-  include ApplicationHelper
+  include BaseHelper
   belongs_to :person
 
   validates_presence_of :person

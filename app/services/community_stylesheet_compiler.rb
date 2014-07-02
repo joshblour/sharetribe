@@ -43,7 +43,7 @@ module CommunityStylesheetCompiler
 
       # Save URL without extension for Rails helpers
 
-      url = if ApplicationHelper.use_s3?
+      url = if BaseHelper.use_s3?
         sync(target_file_path, target_file_basename)
       else
         # Save file without extension for Rails helpers
@@ -76,7 +76,7 @@ module CommunityStylesheetCompiler
 
     def use_gzip?
       # Don't use gzip locally
-      ApplicationHelper.use_s3?
+      BaseHelper.use_s3?
     end
 
     # If using S3 as storage (e.g. in Heroku) need to move the generated files to S3

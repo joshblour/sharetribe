@@ -8,7 +8,7 @@ require File.expand_path('../../../lib/np_guid/uuid22', __FILE__)
 class Person < ActiveRecord::Base
 
   include ErrorsHelper
-  include ApplicationHelper
+  include BaseHelper
 
   self.primary_key = "id"
 

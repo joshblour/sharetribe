@@ -40,7 +40,7 @@ class Mangopay < PaymentGateway
     else # Something else happened
       results[:status] = "error"
       results[:error] = I18n.t("layouts.notifications.error_in_payment")
-      ApplicationHelper.send_error_notification("Payment error: not completed or canceled (MangoPay)", "Payment Error", options[:params])
+      BaseHelper.send_error_notification("Payment error: not completed or canceled (MangoPay)", "Payment Error", options[:params])
     end
 
     return results
@@ -59,7 +59,7 @@ class Mangopay < PaymentGateway
     puts "WITHDRAWAL RESPONSE #{response.inspect}"
 
     if response["ErrorCode"]
-      ApplicationHelper.send_error_notification(response["ErrorCode"], "MangopayWithdrawalError", response)
+      BaseHelper.send_error_notification(response["ErrorCode"], "MangopayWithdrawalError", response)
       return false
     else
       return true
@@ -97,7 +97,7 @@ class Mangopay < PaymentGateway
         'CanRegisterMeanOfPayment' => false
     })
     if response["ErrorCode"]
-      ApplicationHelper.send_error_notification(response["ErrorCode"],"MangopayRegistrationError", response)
+      BaseHelper.send_error_notification(response["ErrorCode"],"MangopayRegistrationError", response)
       return false
     else
       person.update_attribute(:mangopay_id, response["ID"])
@@ -116,7 +116,7 @@ class Mangopay < PaymentGateway
     })
     puts "BENEFICIARY RESPONSE #{response.inspect}"
     if response["ErrorCode"]
-      ApplicationHelper.send_error_notification(response["ErrorCode"],"MangopayBeneficiaryError", response)
+      BaseHelper.send_error_notification(response["ErrorCode"],"MangopayBeneficiaryError", response)
       raise response["UserMessage"]
       return false
     else

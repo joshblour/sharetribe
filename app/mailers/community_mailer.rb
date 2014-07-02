@@ -15,7 +15,7 @@ class CommunityMailer < ActionMailer::Base
             rescue => e
               # Catch the exception and continue sending emails
             puts "Error sending mail to #{person.confirmed_notification_emails} community updates: #{e.message}"
-            ApplicationHelper.send_error_notification("Error sending mail to #{person.confirmed_notification_emails} community updates: #{e.message}", e.class)
+            BaseHelper.send_error_notification("Error sending mail to #{person.confirmed_notification_emails} community updates: #{e.message}", e.class)
             end
           end
         end

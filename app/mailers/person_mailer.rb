@@ -1,6 +1,6 @@
 # encoding: UTF-8
 
-include ApplicationHelper
+include BaseHelper
 include PeopleHelper
 include ListingsHelper
 include TruncateHtmlHelper
@@ -425,7 +425,7 @@ class PersonMailer < ActionMailer::Base
         begin
           PersonMailer.open_content_message(person, subject, mail_content, default_locale).deliver
         rescue => e
-          ApplicationHelper.send_error_notification("Error sending open content email: #{e.message}", e.class)
+          BaseHelper.send_error_notification("Error sending open content email: #{e.message}", e.class)
         end
         if verbose #main intention of this is to get feedback while sending mass emails from console.
           print "."; STDOUT.flush
@@ -470,7 +470,7 @@ class PersonMailer < ActionMailer::Base
           community_member_email(sender, recipient, email_subject, email_content, community).deliver
         rescue => e
           # Catch the exception and continue sending the emails
-          ApplicationHelper.send_error_notification("Error sending email to all the members of community #{community.full_name(email_locale)}: #{e.message}", e.class)
+          BaseHelper.send_error_notification("Error sending email to all the members of community #{community.full_name(email_locale)}: #{e.message}", e.class)
         end
       end
     end
@@ -483,7 +483,7 @@ class PersonMailer < ActionMailer::Base
         community_starter_email(community_membership.person, community_membership.community).deliver
       rescue => e
         # Catch the exception and continue sending the emails
-        ApplicationHelper.send_error_notification("Error sending email to all community starters: #{e.message}", e.class)
+        BaseHelper.send_error_notification("Error sending email to all community starters: #{e.message}", e.class)
       end
     end
   end

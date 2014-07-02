@@ -77,7 +77,7 @@ class BraintreePaymentsController < BaseController
 
         error_msg = "User #{@current_user.id} tries to pay for user #{@braintree_payment.recipient_id} which has Braintree account for another community #{account_community.name(I18n.locale)}"
         BTLog.error(error_msg)
-        ApplicationHelper.send_error_notification(error_msg, "BraintreePaymentAccountError")
+        BaseHelper.send_error_notification(error_msg, "BraintreePaymentAccountError")
         redirect_to person_message_path
       end
     end

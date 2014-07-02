@@ -77,7 +77,7 @@ class Checkout < PaymentGateway
     else # the security check didn't go through
       results[:status] = "error"
       results[:error] = I18n.t("layouts.notifications.error_in_payment")
-      ApplicationHelper.send_error_notification("Payment security check failed (CheckoutFI)", "Payment Error", params)
+      BaseHelper.send_error_notification("Payment security check failed (CheckoutFI)", "Payment Error", params)
     end
 
     return results

@@ -54,8 +54,8 @@ I18n.module_eval do
       handling = options.delete(:throw) && :throw || options.delete(:raise) && :raise # TODO deprecate :raise
 
       # insert here the variables
-      service_name = ApplicationHelper.fetch_community_service_name_from_thread
-      service_name_other_forms = ApplicationHelper.service_name_other_forms(service_name)
+      service_name = BaseHelper.fetch_community_service_name_from_thread
+      service_name_other_forms = BaseHelper.service_name_other_forms(service_name)
       #puts "in I18n using service name: #{service_name}"
       options.merge!(:service_name => service_name) unless options.key?(:service_name)
       if service_name_other_forms

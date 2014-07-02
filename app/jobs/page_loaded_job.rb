@@ -7,7 +7,7 @@ class PageLoadedJob < Struct.new(:community_membership_id, :host)
   # if the job doesn't have host parameter, should call the method with nil, to set the default service_name
   def before(job)
     # No need to set the mailer as no mails sent from this action
-    # ApplicationHelper.store_community_service_name_to_thread_from_host(host)
+    # BaseHelper.store_community_service_name_to_thread_from_host(host)
   end
 
   def perform

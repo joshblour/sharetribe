@@ -2,7 +2,7 @@
 
 class Invitation < ActiveRecord::Base
 
-  #include ApplicationHelper
+  #include BaseHelper
 
   has_many :community_memberships #One invitation can result many users joining.
   belongs_to :community
@@ -16,7 +16,7 @@ class Invitation < ActiveRecord::Base
   validates_length_of :message, :maximum => 5000, :allow_nil => true
 
   before_validation(:on => :create) do
-    self.code ||= ApplicationHelper.random_sting.upcase
+    self.code ||= BaseHelper.random_sting.upcase
     self.usages_left ||= 1
   end
 

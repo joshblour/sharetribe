@@ -4,7 +4,7 @@ class Listing < ActiveRecord::Base
   # http://pat.github.io/thinking-sphinx/advanced_config.html
   SPHINX_MAX_MATCHES = 1000
 
-  include ApplicationHelper
+  include BaseHelper
   include ActionView::Helpers::TranslationHelper
   include Rails.application.routes.url_helpers
 

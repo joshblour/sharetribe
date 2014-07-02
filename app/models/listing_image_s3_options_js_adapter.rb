@@ -3,7 +3,7 @@ class ListingImageS3OptionsJSAdapter < JSAdapter
   def initialize(listing)
     s3uploader = S3Uploader.new
 
-    if ApplicationHelper.use_upload_s3?
+    if BaseHelper.use_upload_s3?
       @s3_upload_path = s3uploader.url
       @s3_fields = s3uploader.fields
     end

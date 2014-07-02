@@ -176,7 +176,7 @@ class BraintreeAccountsController < BaseController
 
         error_msg = "User #{@current_user.id} tried to create a Braintree payment account for community #{@current_community.name(I18n.locale)} even though she has existing account for #{account_community.name(I18n.locale)}"
         BTLog.error(error_msg)
-        ApplicationHelper.send_error_notification(error_msg, "BraintreePaymentAccountError")
+        BaseHelper.send_error_notification(error_msg, "BraintreePaymentAccountError")
         redirect_to profile_person_settings_path
       end
     end

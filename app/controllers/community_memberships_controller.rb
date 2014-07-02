@@ -49,7 +49,7 @@ class CommunityMembershipsController < BaseController
         # (This actually should not happen since the code is checked with javascript)
         # This could happen if invitation code is coming from hidden field and is wrong/used for some reason
         session[:invitation_code] = nil # reset code from session if there was issues so that's not used again
-        ApplicationHelper.send_error_notification("Invitation code check did not prevent submiting form, but was detected in the CommunityMembershipsController", "Invitation code error")
+        BaseHelper.send_error_notification("Invitation code check did not prevent submiting form, but was detected in the CommunityMembershipsController", "Invitation code error")
 
         # TODO: if this ever happens, should change the message to something else than "unknown error"
         flash[:error] = t("layouts.notifications.unknown_error")

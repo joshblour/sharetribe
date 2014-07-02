@@ -8,7 +8,7 @@ class BaseController < ApplicationController
     end
   end
 
-  include ApplicationHelper
+  include BaseHelper
   include DefaultURLOptions
   protect_from_forgery
   layout 'application'
@@ -122,7 +122,7 @@ class BaseController < ApplicationController
       # Otherwise pick the domain normally from the request subdomain or custom domain
       if @current_community = block.call
         # Store to thread the service_name used by current community, so that it can be included in all translations
-        ApplicationHelper.store_community_service_name_to_thread(service_name)
+        BaseHelper.store_community_service_name_to_thread(service_name)
       else
         # No community found with this domain, so redirecting to dashboard.
         redirect_to "http://www.#{APP_CONFIG.domain}"
@@ -208,7 +208,7 @@ class BaseController < ApplicationController
     # For some reason, ASI session is no longer valid => log the user out
     clear_user_session
     flash[:error] = t("layouts.notifications.error_with_session")
-    ApplicationHelper.send_error_notification("ASI session was unauthorized. This may be normal, if session just expired, but if this occurs frequently something is wrong.", "ASI session error", params)
+    BaseHelper.send_error_notification("ASI session was unauthorized. This may be normal, if session just expired, but if this occurs frequently something is wrong.", "ASI session error", params)
     redirect_to root_path and return
   end
 

@@ -61,7 +61,7 @@ class PeopleController < Devise::RegistrationsController
 
     if params[:person][:email_second_time_again].present? # Honey pot for spammerbots
       flash[:error] = t("layouts.notifications.registration_considered_spam")
-      ApplicationHelper.send_error_notification("Registration Honey Pot is hit.", "Honey pot")
+      BaseHelper.send_error_notification("Registration Honey Pot is hit.", "Honey pot")
       redirect_to error_redirect_path and return
     end
 
@@ -71,7 +71,7 @@ class PeopleController < Devise::RegistrationsController
         # abort user creation if invitation is not usable.
         # (This actually should not happen since the code is checked with javascript)
         session[:invitation_code] = nil # reset code from session if there was issues so that's not used again
-        ApplicationHelper.send_error_notification("Invitation code check did not prevent submiting form, but was detected in the controller", "Invitation code error")
+        BaseHelper.send_error_notification("Invitation code check did not prevent submiting form, but was detected in the controller", "Invitation code error")
 
         # TODO: if this ever happens, should change the message to something else than "unknown error"
         flash[:error] = t("layouts.notifications.unknown_error")
@@ -368,7 +368,7 @@ class PeopleController < Devise::RegistrationsController
       # Also notify admins that this kind of error happened.
       # TODO: if this ever happens, should change the message to something else than "unknown error"
       flash[:error] = t("layouts.notifications.unknown_error")
-      ApplicationHelper.send_error_notification("New user Sign up failed because Captha check failed, when it shouldn't.", "Captcha error")
+      BaseHelper.send_error_notification("New user Sign up failed because Captha check failed, when it shouldn't.", "Captcha error")
       redirect_to error_redirect_path and return false
     end
 

@@ -1,5 +1,5 @@
 # encoding: utf-8
-module ApplicationHelper
+module BaseHelper
 
   ICON_PACK = APP_CONFIG.icon_pack || "font-awesome"
 
@@ -434,13 +434,13 @@ module ApplicationHelper
       service_name = APP_CONFIG.global_service_name || "Sharetribe"
     end
     if form #check if special form of the name is required
-      service_name = ApplicationHelper.service_name_other_forms(service_name)[form.to_sym]
+      service_name = BaseHelper.service_name_other_forms(service_name)[form.to_sym]
     end
     return service_name
   end
 
   def service_name_illative
-    ApplicationHelper.service_name_other_forms
+    BaseHelper.service_name_other_forms
   end
 
   def email_not_accepted_message
@@ -830,11 +830,11 @@ module ApplicationHelper
   end
 
   def self.use_s3?
-    APP_CONFIG.s3_bucket_name && ApplicationHelper.has_aws_keys?
+    APP_CONFIG.s3_bucket_name && BaseHelper.has_aws_keys?
   end
 
   def self.use_upload_s3?
-    APP_CONFIG.s3_upload_bucket_name && ApplicationHelper.has_aws_keys?
+    APP_CONFIG.s3_upload_bucket_name && BaseHelper.has_aws_keys?
   end
 
   def self.has_aws_keys?

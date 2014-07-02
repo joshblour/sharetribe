@@ -23,7 +23,7 @@ class TermsController < BaseController
       # of the browser after accepting new terms, returns to the acceptance
       # form and clicks the accept button again. In that case an error page is shown.
       unless session[:temp_person_id]
-        ApplicationHelper.send_error_notification("User tried to accept the new terms again. Showing an error page.", "Duplicate-acceptance-of-terms error", params)
+        BaseHelper.send_error_notification("User tried to accept the new terms again. Showing an error page.", "Duplicate-acceptance-of-terms error", params)
         render :file => "public/404.html", :layout => false and return
       end
       @current_user = Person.add_to_kassi_db(session[:temp_person_id])

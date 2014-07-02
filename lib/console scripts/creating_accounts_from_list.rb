@@ -8,7 +8,7 @@ accounts ||= [] # set this before to be array of arrays (format: [given_name, fa
 initial_locale = "es"
 
 accounts.each do |acc|
-  pass = ApplicationHelper.random_sting(8)
+  pass = BaseHelper.random_sting(8)
   
   # create the user
   p = Person.new 
