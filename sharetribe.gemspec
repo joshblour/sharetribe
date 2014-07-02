@@ -81,7 +81,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'fb-channel-file'
   s.add_dependency 'country_select'
   s.add_dependency 'localized_country_select', '>= 0.9.3'
-  s.add_dependency 'mangopay'
+  s.add_dependency 'mangopay', '~> 2.0.0'
   s.add_dependency 'braintree'
   s.add_dependency "mail_view", "~> 1.0.3"
   s.add_dependency 'statesman', '~> 0.5.0'
