@@ -1,4 +1,4 @@
-class PaymentsController < ApplicationController
+class PaymentsController < BaseController
 
   include MathHelper
 

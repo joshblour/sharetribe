@@ -1,4 +1,4 @@
-class NewsItemsController < ApplicationController
+class NewsItemsController < BaseController
 
   layout "layouts/infos"
 

@@ -1,4 +1,4 @@
-class BraintreePaymentsController < ApplicationController
+class BraintreePaymentsController < BaseController
 
   before_filter :fetch_conversation
   before_filter :ensure_not_paid_already

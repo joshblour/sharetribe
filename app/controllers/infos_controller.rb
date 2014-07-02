@@ -1,4 +1,4 @@
-class InfosController < ApplicationController
+class InfosController < BaseController
 
   skip_filter :check_email_confirmation, :dashboard_only
 

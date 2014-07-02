@@ -1,4 +1,4 @@
-class ListingsController < ApplicationController
+class ListingsController < BaseController
   include PeopleHelper
 
   # Skip auth token check as current jQuery doesn't provide it automatically

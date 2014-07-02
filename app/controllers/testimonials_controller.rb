@@ -1,4 +1,4 @@
-class TestimonialsController < ApplicationController
+class TestimonialsController < BaseController
 
   before_filter :except => :index do |controller|
     controller.ensure_logged_in t("layouts.notifications.you_must_log_in_to_give_feedback")

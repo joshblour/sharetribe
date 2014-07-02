@@ -1,4 +1,4 @@
-class PollAnswersController < ApplicationController
+class PollAnswersController < BaseController
 
   skip_filter :dashboard_only
 

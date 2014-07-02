@@ -1,4 +1,4 @@
-class SearchController < ApplicationController
+class SearchController < BaseController
 
   skip_filter :dashboard_only
 

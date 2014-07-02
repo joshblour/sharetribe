@@ -1,5 +1,5 @@
 # encoding: UTF-8
-class Admin::EmailsController < ApplicationController
+class Admin::EmailsController < BaseController
 
   before_filter :ensure_is_admin
 

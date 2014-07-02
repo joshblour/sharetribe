@@ -1,4 +1,4 @@
-class FeedbacksController < ApplicationController
+class FeedbacksController < BaseController
 
   skip_filter :check_email_confirmation
   skip_filter :dashboard_only

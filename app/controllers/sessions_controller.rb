@@ -1,6 +1,6 @@
 require 'rest_client'
 
-class SessionsController < ApplicationController
+class SessionsController < BaseController
 
   skip_filter :check_email_confirmation
   skip_filter :dashboard_only

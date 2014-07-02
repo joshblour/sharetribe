@@ -1,4 +1,4 @@
-class TermsController < ApplicationController
+class TermsController < BaseController
 
   layout :choose_layout
 

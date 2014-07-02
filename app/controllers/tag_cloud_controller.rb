@@ -1,4 +1,4 @@
-class TagCloudController < ApplicationController
+class TagCloudController < BaseController
 
   skip_filter :dashboard_only
 

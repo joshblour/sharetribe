@@ -1,4 +1,4 @@
-class Admin::PollsController < ApplicationController
+class Admin::PollsController < BaseController
 
   layout "layouts/admin"
 

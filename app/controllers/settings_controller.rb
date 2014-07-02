@@ -1,4 +1,4 @@
-class SettingsController < ApplicationController
+class SettingsController < BaseController
 
   before_filter :except => :unsubscribe do |controller|
     controller.ensure_logged_in t("layouts.notifications.you_must_log_in_to_view_your_settings")

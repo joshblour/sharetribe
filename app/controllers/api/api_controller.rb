@@ -1,4 +1,4 @@
-class Api::ApiController < ApplicationController
+class Api::ApiController < BaseController
   include ApiHelper
 
   skip_filter :single_community_only

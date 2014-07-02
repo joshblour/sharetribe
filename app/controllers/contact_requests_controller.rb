@@ -1,4 +1,4 @@
-class ContactRequestsController < ApplicationController
+class ContactRequestsController < BaseController
 
   skip_filter :single_community_only
 

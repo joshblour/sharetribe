@@ -1,4 +1,4 @@
-class Admin::CommunityCustomizationsController < ApplicationController
+class Admin::CommunityCustomizationsController < BaseController
   before_filter :ensure_is_admin
 
   skip_filter :dashboard_only

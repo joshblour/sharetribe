@@ -1,4 +1,4 @@
-class BraintreeAccountsController < ApplicationController
+class BraintreeAccountsController < BaseController
 
   LIST_OF_STATES = [
       ['Alabama', 'AL'],

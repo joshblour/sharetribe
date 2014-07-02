@@ -1,4 +1,4 @@
-class CommunitiesController < ApplicationController
+class CommunitiesController < BaseController
 
   include CommunitiesHelper
 

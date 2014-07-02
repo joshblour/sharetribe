@@ -1,6 +1,6 @@
 # Note: This controller is called "MercuryUpdateController" because "MercuryController"
 # is an internal controller of Mercury. DO NOT rename this class to MercuryController!
-class MercuryUpdateController < ApplicationController
+class MercuryUpdateController < BaseController
 
   skip_filter :dashboard_only
 

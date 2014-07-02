@@ -1,4 +1,4 @@
-class BraintreeWebhooksController < ApplicationController
+class BraintreeWebhooksController < BaseController
 
   skip_before_filter :verify_authenticity_token
   skip_filter :fetch_community, :check_email_confirmation, :dashboard_only

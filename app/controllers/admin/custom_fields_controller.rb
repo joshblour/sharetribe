@@ -1,4 +1,4 @@
-class Admin::CustomFieldsController < ApplicationController
+class Admin::CustomFieldsController < BaseController
 
   before_filter :ensure_is_admin
   before_filter :custom_fields_allowed

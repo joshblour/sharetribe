@@ -1,4 +1,4 @@
-class InvitationsController < ApplicationController
+class InvitationsController < BaseController
 
   skip_filter :dashboard_only
 

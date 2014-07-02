@@ -1,4 +1,4 @@
-class PersonMessagesController < ApplicationController
+class PersonMessagesController < BaseController
 
   before_filter do |controller|
     controller.ensure_logged_in t("layouts.notifications.you_must_log_in_to_send_a_message")

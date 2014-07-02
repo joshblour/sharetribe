@@ -1,4 +1,4 @@
-class Admin::CategoriesController < ApplicationController
+class Admin::CategoriesController < BaseController
 
   before_filter :ensure_is_admin
   before_filter :ensure_category_editing_allowed

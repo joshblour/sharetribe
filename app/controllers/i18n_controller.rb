@@ -1,4 +1,4 @@
-class I18nController < ApplicationController
+class I18nController < BaseController
 
   skip_filter :single_community_only
   skip_filter :dashboard_only

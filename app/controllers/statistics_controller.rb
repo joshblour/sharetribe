@@ -1,4 +1,4 @@
-class StatisticsController < ApplicationController
+class StatisticsController < BaseController
 
   skip_filter  :dashboard_only
 

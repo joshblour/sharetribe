@@ -1,4 +1,4 @@
-class MessagesController < ApplicationController
+class MessagesController < BaseController
 
   skip_filter :dashboard_only
 

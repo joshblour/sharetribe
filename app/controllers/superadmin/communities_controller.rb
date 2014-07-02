@@ -1,4 +1,4 @@
-class Superadmin::CommunitiesController < ApplicationController
+class Superadmin::CommunitiesController < BaseController
   before_filter :ensure_is_superadmin
   skip_filter :dashboard_only
 

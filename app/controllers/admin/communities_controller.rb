@@ -1,4 +1,4 @@
-class Admin::CommunitiesController < ApplicationController
+class Admin::CommunitiesController < BaseController
   helper_method :member_sort_column, :member_sort_direction
 
   include CommunitiesHelper
