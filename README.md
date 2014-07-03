@@ -173,6 +173,7 @@ cd my_app
 ## RUN
 bundle
 rake db:migrate  # will take some time
+rm public/index.html
 rails s
 ```
 ## Updating
