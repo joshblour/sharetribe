@@ -1,3 +1,6 @@
+require 'sass-rails'
+require 'compass-rails'
+
 require 'haml'
 require 'sass'
 require 'rest-client'

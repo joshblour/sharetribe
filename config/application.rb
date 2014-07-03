@@ -18,7 +18,6 @@ module Kassi
   class Application < Rails::Application
     # This is a little cubersome, but this needs to be shared with the StylesheetCompiler,
     # and thus class const
-    VENDOR_CSS_PATH = Rails.root.join("vendor", "assets", "stylesheets")
 
     # Load all rack middleware files
     config.autoload_paths += %W(#{config.root}/lib/rack_middleware)
@@ -42,16 +41,7 @@ module Kassi
 
     # Add webfonts folder which can contain icons used like fonts
     config.assets.paths << Rails.root.join("app", "assets", "webfonts")
-    config.assets.paths << VENDOR_CSS_PATH
 
-    # Define here additional Assset Pipeline Manifests to include to precompilation
-    config.assets.precompile += ['markerclusterer.js', 'communities/custom-style-*', 'ss-*', 'modernizr.min.js', 'mercury.js','jquery-1.7.js']
-
-    # Read the config from the config.yml
-    APP_CONFIG = ConfigLoader.load_app_config
-
-    # enable custom domain cookies rack middleware
-    config.middleware.use "CustomDomainCookie", APP_CONFIG.domain
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
@@ -71,9 +61,6 @@ module Kassi
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
     # config.time_zone = 'Central Time (US & Canada)'
 
-    # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
-    # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
-    config.i18n.default_locale = (APP_CONFIG.default_locale ? APP_CONFIG.default_locale.to_sym : :en)
 
     # add locales from subdirectories
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
@@ -97,31 +84,7 @@ module Kassi
                                  :"date_of_birth(3i)", :"date_of_birth(2i)", :"date_of_birth(1i)"]
 
     config.time_zone = 'Helsinki'
-    if APP_CONFIG.use_recaptcha
-      ENV['RECAPTCHA_PUBLIC_KEY']  = APP_CONFIG.recaptcha_public_key
-      ENV['RECAPTCHA_PRIVATE_KEY'] = APP_CONFIG.recaptcha_private_key
-    end
 
-    # Configure Paperclip
-    paperclip_options = {
-          :path => ":rails_root/public/system/:attachment/:id/:style/:filename",
-          :url => "/system/:attachment/:id/:style/:filename"
-    }
-
-    if (APP_CONFIG.s3_bucket_name && APP_CONFIG.aws_access_key_id && APP_CONFIG.aws_secret_access_key)
-      paperclip_options.merge!({
-        :path => "images/:class/:attachment/:id/:style/:filename",
-        :url => ":s3_domain_url",
-        :storage => :s3,
-        :s3_protocol => 'https',
-        :s3_credentials => {
-              :bucket            => APP_CONFIG.s3_bucket_name,
-              :access_key_id     => APP_CONFIG.aws_access_key_id,
-              :secret_access_key => APP_CONFIG.aws_secret_access_key
-        }
-      })
-    end
-    config.paperclip_defaults = paperclip_options
 
     # If logger_type is set to something else than "normal" we'll use stdout here
     # the reason for this type of check is that it works also in Heroku where those variables can't be read in slug compilation
