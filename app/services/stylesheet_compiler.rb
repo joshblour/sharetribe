@@ -34,7 +34,7 @@ module StylesheetCompiler
     def create_sprockets_env(path)
       Sprockets::Environment.new(Rails.root).tap do |env|
         env.append_path path
-        env.append_path Rails.application::VENDOR_CSS_PATH
+        env.append_path Sharetribe.application::VENDOR_CSS_PATH
 
         env.context_class.instance_eval do
           # Include these helpers to allow SASS files to use image-url etc. helpers

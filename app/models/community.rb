@@ -203,7 +203,7 @@ class Community < ActiveRecord::Base
       return settings["locales"]
     else
       # if locales not set, return the short locales from the default list
-      return Rails.application.config.AVAILABLE_LOCALES.collect{|loc| loc[1]}
+      return Sharetribe.application.config.AVAILABLE_LOCALES.collect{|loc| loc[1]}
     end
   end
 

@@ -1,21 +1,21 @@
-require File.expand_path('../../config_loader', __FILE__)
-APP_CONFIG = ConfigLoader.load_app_config
-VENDOR_CSS_PATH = Rails.root.join("vendor", "assets", "stylesheets")
-
-Rails.application.config.assets.paths << VENDOR_CSS_PATH
-  
-# Define here additional Assset Pipeline Manifests to include to precompilation
-Rails.application.config.assets.precompile += ['markerclusterer.js', 'communities/custom-style-*', 'ss-*', 'modernizr.min.js', 'mercury.js','jquery-1.7.js']
-
-# enable custom domain cookies rack middleware
-Rails.application.config.middleware.use "CustomDomainCookie", APP_CONFIG.domain
-
-if APP_CONFIG.use_recaptcha
-  ENV['RECAPTCHA_PUBLIC_KEY']  = APP_CONFIG.recaptcha_public_key
-  ENV['RECAPTCHA_PRIVATE_KEY'] = APP_CONFIG.recaptcha_private_key
-end
-
+# require File.expand_path('../../config_loader', __FILE__)
 Sharetribe.application.configure do
+  APP_CONFIG = ConfigLoader.load_app_config
+
+  VENDOR_CSS_PATH = Rails.root.join("vendor", "assets", "stylesheets")
+
+  Rails.application.config.assets.paths << VENDOR_CSS_PATH
+  
+  # Define here additional Assset Pipeline Manifests to include to precompilation
+  Rails.application.config.assets.precompile += ['markerclusterer.js', 'communities/custom-style-*', 'ss-*', 'modernizr.min.js', 'mercury.js','jquery-1.7.js']
+
+  # enable custom domain cookies rack middleware
+  Rails.application.config.middleware.use "CustomDomainCookie", APP_CONFIG.domain
+
+  if APP_CONFIG.use_recaptcha
+    ENV['RECAPTCHA_PUBLIC_KEY']  = APP_CONFIG.recaptcha_public_key
+    ENV['RECAPTCHA_PRIVATE_KEY'] = APP_CONFIG.recaptcha_private_key
+  end
 
 # This is the list of all possible locales. Part of the translations may be unfinished.
   config.AVAILABLE_LOCALES = [
@@ -93,5 +93,4 @@ Sharetribe.application.configure do
   # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
   # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
   config.i18n.default_locale = (APP_CONFIG.default_locale ? APP_CONFIG.default_locale.to_sym : :en)
-  
 end

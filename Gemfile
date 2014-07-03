@@ -38,12 +38,12 @@ group :development do
   gem 'guard-livereload', require: false
   gem 'rack-livereload'
   gem 'rb-fsevent',       require: false
-  gem 'guard-rspec',      require: false
+  gem 'guard-rspec', '2.5.4',    require: false
   gem 'zeus', '0.15.1'
 end
 
 group :test do
-  gem "rspec-rails"
+  gem "rspec-rails", '~> 2.12.0'
   gem 'capybara'
   gem 'cucumber-rails', :require => false
   gem 'cucumber'

@@ -43,7 +43,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'haml'
   s.add_dependency 'sass', "  ~> 3.2.9"
   s.add_dependency 'rest-client', '>= 1.6.0'
-  s.add_dependency 'acts-as-taggable-on'
+  s.add_dependency 'acts-as-taggable-on', '2.3.3'
   s.add_dependency 'paperclip'
   s.add_dependency 'delayed_paperclip'
   s.add_dependency 'aws-sdk'

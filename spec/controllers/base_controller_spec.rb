@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe ApplicationController do
+describe BaseController do
   #before (:each) {set_subdomain}
 
   controller do
