@@ -78,6 +78,7 @@ prefork = lambda {
   end
 
   RSpec.configure do |config|
+    config.infer_base_class_for_anonymous_controllers = true
     config.include Devise::TestHelpers, :type => :controller
   end
 }

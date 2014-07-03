@@ -11,29 +11,30 @@ module BaseControllerMethods
   include DefaultURLOptions
   
   def self.included(base)
-  
-    base.protect_from_forgery
-    base.layout 'application'
+    base.class_eval do
+      protect_from_forgery
+      layout 'application'
 
-    base.before_filter :show_maintenance_page
+      before_filter :show_maintenance_page
 
-    base.before_filter :force_ssl, :check_auth_token, :fetch_logged_in_user, :dashboard_only, :single_community_only, :fetch_community, :fetch_community_membership, :set_locale, :generate_event_id, :set_default_url_for_mailer
-    base.before_filter :cannot_access_without_joining, :except => [ :confirmation_pending, :check_email_availability]
-    base.before_filter :can_access_only_organizations_communities
-    base.before_filter :check_email_confirmation, :except => [ :confirmation_pending, :check_email_availability_and_validity]
+      before_filter :force_ssl, :check_auth_token, :fetch_logged_in_user, :dashboard_only, :single_community_only, :fetch_community, :fetch_community_membership, :set_locale, :generate_event_id, :set_default_url_for_mailer
+      before_filter :cannot_access_without_joining, :except => [ :confirmation_pending, :check_email_availability]
+      before_filter :can_access_only_organizations_communities
+      before_filter :check_email_confirmation, :except => [ :confirmation_pending, :check_email_availability_and_validity]
 
-    # after filter would be more logical, but then log would be skipped when action cache is hit.
-    base.before_filter :log_to_ressi if APP_CONFIG.log_to_ressi
+      # after filter would be more logical, but then log would be skipped when action cache is hit.
+      before_filter :log_to_ressi if APP_CONFIG.log_to_ressi
 
-    # This updates translation files from WTI on every page load. Only useful in translation test servers.
-    base.before_filter :fetch_translations if APP_CONFIG.update_translations_on_every_page_load == "true"
+      # This updates translation files from WTI on every page load. Only useful in translation test servers.
+      before_filter :fetch_translations if APP_CONFIG.update_translations_on_every_page_load == "true"
 
-    #this shuold be last
-    base.before_filter :push_reported_analytics_event_to_js
+      #this shuold be last
+      before_filter :push_reported_analytics_event_to_js
 
-    base.rescue_from RestClient::Unauthorized, :with => :session_unauthorized
+      rescue_from RestClient::Unauthorized, :with => :session_unauthorized
 
-    base.helper_method :root, :logged_in?, :current_user?
+      helper_method :root, :logged_in?, :current_user?
+    end
   end
 
   def set_locale

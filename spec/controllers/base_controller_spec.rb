@@ -97,7 +97,7 @@ describe BaseController do
 
   describe "#fetch_community" do
 
-    controller do
+    controller BaseController do
       skip_filter :dashboard_only
       def index
         # do nothing as we are testing the filters here only
