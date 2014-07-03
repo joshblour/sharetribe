@@ -2,19 +2,17 @@ require File.expand_path('../../config_loader', __FILE__)
 APP_CONFIG = ConfigLoader.load_app_config
 VENDOR_CSS_PATH = Rails.root.join("vendor", "assets", "stylesheets")
 
-Rails.application.configure do
-  config.assets.paths << VENDOR_CSS_PATH
+Rails.application.config.assets.paths << VENDOR_CSS_PATH
   
-  # Define here additional Assset Pipeline Manifests to include to precompilation
-  assets.precompile += ['markerclusterer.js', 'communities/custom-style-*', 'ss-*', 'modernizr.min.js', 'mercury.js','jquery-1.7.js']
+# Define here additional Assset Pipeline Manifests to include to precompilation
+Rails.application.config.assets.precompile += ['markerclusterer.js', 'communities/custom-style-*', 'ss-*', 'modernizr.min.js', 'mercury.js','jquery-1.7.js']
 
-  # enable custom domain cookies rack middleware
-  config.middleware.use "CustomDomainCookie", APP_CONFIG.domain
+# enable custom domain cookies rack middleware
+Rails.application.config.middleware.use "CustomDomainCookie", APP_CONFIG.domain
 
-  if APP_CONFIG.use_recaptcha
-    ENV['RECAPTCHA_PUBLIC_KEY']  = APP_CONFIG.recaptcha_public_key
-    ENV['RECAPTCHA_PRIVATE_KEY'] = APP_CONFIG.recaptcha_private_key
-  end
+if APP_CONFIG.use_recaptcha
+  ENV['RECAPTCHA_PUBLIC_KEY']  = APP_CONFIG.recaptcha_public_key
+  ENV['RECAPTCHA_PRIVATE_KEY'] = APP_CONFIG.recaptcha_private_key
 end
 
 Sharetribe.application.configure do
