@@ -150,16 +150,15 @@ gem 'win32-process', :platforms => [:mswin, :mingw]
 ```
 
 #### To use as a Rails engine
-Run
 ```bash
-rails new _3.2.17_ my_app
+## RUN
+rails _3.2.17_ new my_app
 cd my_app
 ```
-Edit
 ```ruby
+## EDIT
 #Gemfile
   gem 'sharetribe', github: 'joshblour/sharetribe', branch: 'engine'
-
 
 #../routes.rb
   mount Sharetribe::Engine, at: "/"
@@ -169,14 +168,12 @@ Edit
 
 #../application.css
  *= require sharetribe
-
 ```
-Run
 ```bash
+## RUN
 bundle
 rake db:migrate  # will take some time
 rails s
-
 ```
 ## Updating
 
