@@ -9,7 +9,7 @@ module Sharetribe
     # Return either Application or Engine,
     # depending on how Sharetribe has been loaded
     def application
-      engine? ? Engine : Application
+      engine? ? ::Sharetribe::Engine : ::Kassi::Application
     end
 
     def root
@@ -29,7 +29,7 @@ module Sharetribe
 end
 
 # Load Sharetribe as a Rails Engine, unless running as a Rails Application
-unless defined?(Sharetribe::Application)
+unless defined?(Kassi::Application)
   require 'sharetribe/engine'
 end
 
