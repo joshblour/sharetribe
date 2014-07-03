@@ -149,6 +149,32 @@ gem 'win32-process', :platforms => [:mswin, :mingw]
 - rake RAILS_ENV=production jobs:work
 ```
 
+#### To use as a Rails engine
+```bash
+## RUN
+rails _3.2.17_ new my_app --database=mysql --skip-bundle
+cd my_app
+```
+```ruby
+## EDIT
+#Gemfile
+  gem 'sharetribe', github: 'joshblour/sharetribe', branch: 'engine'
+
+#../routes.rb
+  mount Sharetribe::Engine, at: "/"
+
+#../application.js
+//= require sharetribe
+
+#../application.css
+ *= require sharetribe
+```
+```bash
+## RUN
+bundle
+rake db:migrate  # will take some time
+rails s
+```
 ## Updating
 
 See [RELEASE_NOTES.md](RELEASE_NOTES.md) for information about what has changed and if special tasks are needed to update.
