@@ -1,4 +1,4 @@
-# require File.expand_path('../../config_loader', __FILE__)
+require File.expand_path('../../config_loader', __FILE__)
 Sharetribe.application.configure do
   APP_CONFIG = ConfigLoader.load_app_config
 
