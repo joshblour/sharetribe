@@ -152,7 +152,7 @@ gem 'win32-process', :platforms => [:mswin, :mingw]
 #### To use as a Rails engine
 ```bash
 ## RUN
-rails _3.2.17_ new my_app
+rails _3.2.17_ new my_app --skip-bundle
 cd my_app
 ```
 ```ruby
