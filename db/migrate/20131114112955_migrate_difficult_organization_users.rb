@@ -1,3 +1,5 @@
+require_relative '../migration_classes'
+
 class MigrateDifficultOrganizationUsers < ActiveRecord::Migration
 
   def migrate_listing_author!(new_author, organization)

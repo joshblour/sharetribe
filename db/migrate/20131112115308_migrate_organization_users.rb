@@ -1,3 +1,5 @@
+require_relative '../migration_classes'
+
 class MigrateOrganizationUsers < ActiveRecord::Migration
 
   def up

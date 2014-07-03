@@ -38,6 +38,17 @@ end
 class Notification < ActiveRecord::Base
 end
 
+class CommunityCategory < ActiveRecord::Base
+  attr_accessor :category, :share_type, :community_id
+end
+
+class ShareType < ActiveRecord::Base
+  attr_accessor :name, :icon, :parent
+end
+
+class Organization < ActiveRecord::Base
+end
+
 Community.class_eval do
   def self.find_by_domain(domain_string)
     if domain_string =~ /\:/ #string includes port which should be removed

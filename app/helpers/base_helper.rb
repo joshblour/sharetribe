@@ -366,14 +366,14 @@ module BaseHelper
   def available_locales
     if @current_community
       # use the ordered list from community settings, but replace the short locales with ["English", "en"] like arrays from APP_CONFIG
-      return @current_community.locales.collect{|loc| Kassi::Application.config.AVAILABLE_LOCALES.select{|app_loc| app_loc[1] == loc }[0]}
+      return @current_community.locales.collect{|loc| Rails.application.config.AVAILABLE_LOCALES.select{|app_loc| app_loc[1] == loc }[0]}
     else
-      return Kassi::Application.config.AVAILABLE_LOCALES
+      return Rails.application.config.AVAILABLE_LOCALES
     end
   end
 
   def get_full_locale_name(locale)
-    Kassi::Application.config.AVAILABLE_LOCALES.each do |l|
+    Rails.application.config.AVAILABLE_LOCALES.each do |l|
       if l[1].to_s == locale.to_s
         return l[0]
       end
@@ -804,7 +804,7 @@ module BaseHelper
     locale_part = ""
     selected_locale = args[:locale].to_s
     if selected_locale.present? && selected_locale != "en"
-      Kassi::Application.config.AVAILABLE_DASHBOARD_LOCALES.each do |name, loc|
+      Rails.application.config.AVAILABLE_DASHBOARD_LOCALES.each do |name, loc|
         locale_part = "/#{selected_locale}" and break if loc == selected_locale
       end
     end

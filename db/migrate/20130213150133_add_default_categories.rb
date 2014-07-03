@@ -1,3 +1,5 @@
+require_relative '../migration_classes'
+
 class AddDefaultCategories < ActiveRecord::Migration
   
   
@@ -71,14 +73,14 @@ class AddDefaultCategories < ActiveRecord::Migration
     
     categories.each do |category| 
       if category.class == String
-        Category.create([{:name => category, :icon => category}]) unless Category.find_by_name(category)
+        Category.create({:name => category, :icon => category}, :without_protection => true) unless Category.find_by_name(category)
       elsif category.class == Hash
-        parent = Category.find_by_name(category.keys.first) || Category.create(:name => category.keys.first, :icon => category.keys.first) 
+        parent = Category.find_by_name(category.keys.first) || Category.create({:name => category.keys.first, :icon => category.keys.first}, :without_protection => true) 
         category.values.first.each do |subcategory|
-          c = Category.find_by_name(subcategory) || Category.create({:name => subcategory, :icon => subcategory, :parent_id => parent.id}) 
+          c = Category.find_by_name(subcategory) || Category.create({:name => subcategory, :icon => subcategory, :parent_id => parent.id}, :without_protection => true) 
           # As subcategories won't get their own link to share_types (as they inherit that from parent category)
           # We create a CommunityCategory entry here to mark that these subcategories exist in the default tribe
-          CommunityCategory.create(:category => c, :community_id => community_id) unless CommunityCategory.find_by_category_id_and_community_id(c.id, community_id)
+          CommunityCategory.create({:category => c, :community_id => community_id}, :without_protection => true) unless CommunityCategory.find_by_category_id_and_community_id(c.id, community_id)
         end
       else
         puts "Invalid data for categories. It must be array of Strings and Hashes."
@@ -88,10 +90,10 @@ class AddDefaultCategories < ActiveRecord::Migration
 
     share_types.each do |share_type, details|
       parent = ShareType.find_by_name(details[:parent]) if details[:parent]
-      s =  ShareType.find_by_name(share_type) || ShareType.create(:name => share_type, :icon => (details[:icon] || share_type), :parent => parent)
+      s =  ShareType.find_by_name(share_type) || ShareType.create({:name => share_type, :icon => (details[:icon] || share_type), :parent => parent}, :without_protection => true)
       details[:categories].each do |category_name|
         c = Category.find_by_name(category_name)
-        CommunityCategory.create(:category => c, :share_type => s, :community_id => community_id) if c && ! CommunityCategory.find_by_category_id_and_share_type_id_and_community_id(c.id, s.id, community_id)
+        CommunityCategory.create({:category => c, :share_type => s, :community_id => community_id}, :without_protection => true) if c && ! CommunityCategory.find_by_category_id_and_share_type_id_and_community_id(c.id, s.id, community_id)
       end
       
     end
@@ -103,7 +105,7 @@ class AddDefaultCategories < ActiveRecord::Migration
   def update_translations(params={})
     translations = params[:translations] || {}
     # Store translations for all that can be found from translation files
-    Kassi::Application.config.AVAILABLE_LOCALES.each do |loc|
+    Rails.application.config.AVAILABLE_LOCALES.each do |loc|
       locale = loc[1]
       Category.find_each do |category|
         begin 
@@ -120,9 +122,9 @@ class AddDefaultCategories < ActiveRecord::Migration
             existing_translation.update_attribute(:name, translated_name)
           else
             unless params[:without_description_translations]
-              CategoryTranslation.create(:category => category, :locale => locale, :name => translated_name) 
+              CategoryTranslation.create({:category => category, :locale => locale, :name => translated_name}, :without_protection => true) 
             else
-              CategoryTranslation.create(:category => category, :locale => locale, :name => translated_name) 
+              CategoryTranslation.create({:category => category, :locale => locale, :name => translated_name}, :without_protection => true) 
             end
           end
         rescue I18n::MissingTranslationData
@@ -134,7 +136,7 @@ class AddDefaultCategories < ActiveRecord::Migration
       ShareType.find_each do |share_type|
         share_type_name = share_type.name
         #see if the name ends with "_alt\d*" meaning that it's an alternative share_type in the DB but can use the same translations as the original
-        if share_type_name.match(/_alt\d*$/)
+        if share_type_name && share_type_name.match(/_alt\d*$/)
           share_type_name = share_type_name.split("_alt").first
         end
         begin
